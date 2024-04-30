@@ -1,18 +1,30 @@
+import Image from "next/image";
 import CategoryList from "./_components/category-list";
 import Header from "./_components/header";
 import Search from "./_components/search";
 
 const Home = () => {
   return (
-    <h1>
+    <>
       <Header />
       <div className="px-5 pt-6">
         <Search />
       </div>
-      <div className="px-5 pt-6">
+      <div className="pt-6">
         <CategoryList />
       </div>
-    </h1>
+      <div className="px-5">
+        <Image
+          src={"/promo-banner.png"}
+          height={0}
+          width={0}
+          alt="Até 30% de desconto em pizzas!"
+          className="h-auto w-full object-contain"
+          sizes="100vw"
+          quality={100}
+        />
+      </div>
+    </>
   );
 };
 
