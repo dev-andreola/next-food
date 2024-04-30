@@ -5,9 +5,15 @@ const prismaClient = new PrismaClient();
 const description =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec nisl lorem. Praesent pharetra, sapien ut fringilla malesuada, nisi felis ullamcorper ex, eu consectetur elit dolor sed dolor. Praesent orci mi, auctor aliquet semper vitae, volutpat quis augue. Cras porta sapien nec pharetra laoreet. Sed at velit sit amet mauris varius volutpat sit amet id mauris. Maecenas vitae mattis ante. Morbi nulla quam, sagittis at orci eu, scelerisque auctor neque.";
 
+async function clearData() {
+  await prismaClient.product.deleteMany();
+  await prismaClient.restaurant.deleteMany();
+  await prismaClient.category.deleteMany();
+}
+
 const createBurguers = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const burguersCategory = await prismaClient.category.create({
     data: {
@@ -201,7 +207,7 @@ const createBurguers = async (
 
 const createPizzas = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const pizzasCategory = await prismaClient.category.create({
     data: {
@@ -377,7 +383,7 @@ const createPizzas = async (
 
 const createJapanese = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const japaneseCategory = await prismaClient.category.create({
     data: {
@@ -571,7 +577,7 @@ const createJapanese = async (
 
 const createBrazilian = async (
   desertsCategoryId: string,
-  juicesCategoryId: string
+  juicesCategoryId: string,
 ) => {
   const brazilianCategory = await prismaClient.category.create({
     data: {
@@ -1032,6 +1038,7 @@ const createJuices = async (restaurantId: string, categoryId: string) => {
 };
 
 const main = async () => {
+  await clearData();
   const desertsCategory = await prismaClient.category.create({
     data: {
       name: "Sobremesas",
