@@ -39,7 +39,7 @@ const ProductInfo = ({ product, extraProducts }: ProductInfoProps) => {
     });
 
   return (
-    <>
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white pb-5">
       <div className="p-5">
         {/* RESTAURANT */}
         <div className="flex items-center gap-[0.375rem]">
@@ -142,7 +142,7 @@ const ProductInfo = ({ product, extraProducts }: ProductInfoProps) => {
         <h3 className="ml-5 font-semibold">Bebidas</h3>
         <ProductList products={extraProducts} />
       </div>
-    </>
+    </div>
   );
 };
 
