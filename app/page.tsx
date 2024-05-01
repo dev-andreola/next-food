@@ -52,6 +52,7 @@ const Home = async () => {
             <ChevronRightIcon size={16} />
           </Button>
         </div>
+
         <ProductList products={products} />
       </div>
 
@@ -73,6 +74,7 @@ const Home = async () => {
             <ChevronRightIcon size={16} />
           </Button>
         </div>
+
         <RestaurantList />
       </div>
     </>
