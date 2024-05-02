@@ -4,6 +4,7 @@ import RestaurantImage from "./_components/restaurant-image";
 import Image from "next/image";
 import { StarIcon } from "lucide-react";
 import DeliveryInfo from "@/app/_components/delivery-info";
+import ProductList from "@/app/_components/product-list";
 
 interface RestaurantPageProps {
   params: {
@@ -17,7 +18,35 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
       id,
     },
     include: {
-      categories: true,
+      categories: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          products: {
+            where: {
+              restaurantId: id,
+            },
+            include: {
+              restaurant: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      products: {
+        take: 10,
+        include: {
+          restaurant: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
 
@@ -26,10 +55,10 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
   }
 
   return (
-    <div>
+    <div className="mb-5">
       <RestaurantImage name={restaurant.name} imageUrl={restaurant.imageUrl} />
 
-      <div className="flex items-center justify-between px-5 pt-5">
+      <div className="relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-t-3xl bg-white px-5 pt-5">
         <div className="flex items-center gap-[0.375rem]">
           <div className="relative h-8 w-8">
             <Image
@@ -67,6 +96,18 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
           </div>
         ))}
       </div>
+
+      <div className="mt-6 space-y-4">
+        <h2 className="ml-5 font-semibold">Mais Pedidos</h2>
+        <ProductList products={restaurant.products} />
+      </div>
+
+      {restaurant.categories.map((category) => (
+        <div className="mt-6 space-y-4" key={category.id}>
+          <h2 className="ml-5 font-semibold">{category.name}</h2>
+          <ProductList products={category.products} />
+        </div>
+      ))}
     </div>
   );
 };

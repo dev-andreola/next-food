@@ -13,7 +13,7 @@ interface RestaurantImageProps {
 const RestaurantImage = ({ imageUrl, name }: RestaurantImageProps) => {
   const router = useRouter();
   return (
-    <div className="relative h-[215px] w-full">
+    <div className="relative h-[220px] w-full">
       <Image src={imageUrl} fill alt={name} className="object-cover" />
 
       <Button
