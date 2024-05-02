@@ -64,16 +64,20 @@ const ProductInfo = ({ product, extraProducts }: ProductInfoProps) => {
                   ? formatCurrency(Number(calculateProductTotalPrice(product)))
                   : formatCurrency(Number(product.price))}
               </h2>
-              {product.discountPercentage && (
+              {product.discountPercentage ? (
                 <DiscountBadge
                   discountPercentage={product.discountPercentage}
                 />
+              ) : (
+                <></>
               )}
             </div>
-            {product.discountPercentage > 0 && (
+            {product.discountPercentage > 0 ? (
               <p className=" text-sm text-muted-foreground">
                 De: {formatCurrency(Number(product.price))}
               </p>
+            ) : (
+              <></>
             )}
           </div>
 
