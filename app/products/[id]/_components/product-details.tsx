@@ -115,7 +115,9 @@ const ProductDetails = ({
                 {formatCurrency(calculateProductTotalPrice(product))}
               </h2>
               {product.discountPercentage > 0 && (
-                <DiscountBadge product={product} />
+                <DiscountBadge
+                  discountPercentage={product.discountPercentage}
+                />
               )}
             </div>
 
@@ -145,7 +147,10 @@ const ProductDetails = ({
         </div>
 
         <div className="px-5">
-          <DeliveryInfo restaurant={product.restaurant} />
+          <DeliveryInfo
+            deliveryFee={product.restaurant.deliveryFee}
+            deliveryTimeMinutes={product.restaurant.deliveryTimeMinutes}
+          />
         </div>
 
         <div className="mt-6 space-y-3 px-5">
