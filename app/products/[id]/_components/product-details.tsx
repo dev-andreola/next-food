@@ -78,6 +78,7 @@ const ProductDetails = ({
 
   const handleIncreaseQuantityClick = () =>
     setQuantity((currentState) => currentState + 1);
+
   const handleDecreaseQuantityClick = () =>
     setQuantity((currentState) => {
       if (currentState === 1) return 1;
