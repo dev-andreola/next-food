@@ -65,17 +65,14 @@ export const CartContext = createContext<ICartContext>({
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  // PRODUCTS
   const [products, setProducts] = useState<CartProduct[]>([]);
 
-  // SUBTOTAL
   const subtotalPrice = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + Number(product.price) * product.quantity;
     }, 0);
   }, [products]);
 
-  // TOTAL
   const totalPrice = useMemo(() => {
     return (
       products.reduce((acc, product) => {
@@ -84,25 +81,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   }, [products]);
 
-  // TOTAL QUANTITY
   const totalQuantity = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + product.quantity;
     }, 0);
   }, [products]);
 
-  // TOTAL DISCOUNTS
   const totalDiscounts =
     subtotalPrice - totalPrice + Number(products?.[0]?.restaurant?.deliveryFee);
 
-  // -------------------------------------------------------------------------------
-
-  // FUNCTION CLEAR CART
   const clearCart = () => {
     return setProducts([]);
   };
 
-  // FUNCTION DECREATE PRODUCT QUANTITY
   const decreaseProductQuantity = (productId: string) => {
     return setProducts((prev) =>
       prev.map((cartProduct) => {
@@ -122,7 +113,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  // FUNCTION INCREASE PRODUCT QUANTITY
   const increaseProductQuantity = (productId: string) => {
     return setProducts((prev) =>
       prev.map((cartProduct) => {
@@ -138,14 +128,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  // FUNCTION REMOVE PRODUCT FROM CART
   const removeProductFromCart = (productId: string) => {
     return setProducts((prev) =>
       prev.filter((product) => product.id !== productId),
     );
   };
 
-  // FUNCTION ADD PRODUCT TO CART
   const addProductToCart = ({
     product,
     quantity,
@@ -155,7 +143,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       include: {
         restaurant: {
           select: {
+            id: true;
             deliveryFee: true;
+            deliveryTimeMinutes: true;
           };
         };
       };
@@ -166,6 +156,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (emptyCart) {
       setProducts([]);
     }
+
     // VERIFICAR SE O PRODUTO JÁ ESTÁ NO CARRINHO
     const isProductAlreadyOnCart = products.some(
       (cartProduct) => cartProduct.id === product.id,
