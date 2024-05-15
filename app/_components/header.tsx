@@ -32,15 +32,20 @@ const Header = () => {
     <div className="flex justify-between px-5 pt-6">
       <div className="relative h-[30px] w-[100px]">
         <Link href="/">
-          <Image src={"/logo.png"} fill alt="logo" className="object-cover" />
+          <Image
+            src="/logo.png"
+            alt="FSW Foods"
+            fill
+            className="object-cover"
+          />
         </Link>
       </div>
 
       <Sheet>
         <SheetTrigger>
           <Button
-            size={"icon"}
-            variant={"outline"}
+            size="icon"
+            variant="outline"
             className="border-none bg-transparent"
           >
             <MenuIcon />
@@ -65,6 +70,7 @@ const Header = () => {
                       {data?.user?.name?.split(" ")[1][0]}
                     </AvatarFallback>
                   </Avatar>
+
                   <div>
                     <h3 className="font-semibold">{data?.user?.name}</h3>
                     <span className="block text-xs text-muted-foreground">
@@ -77,9 +83,9 @@ const Header = () => {
           ) : (
             <>
               <div className="flex items-center justify-between pt-10">
-                <h2 className="font-semibold">Olá, Faça seu login!</h2>
-                <Button onClick={handleSignInClick} size={"icon"}>
-                  <LogInIcon size={20} />
+                <h2 className="font-semibold">Olá. Faça seu login!</h2>
+                <Button size="icon" onClick={handleSignInClick}>
+                  <LogInIcon />
                 </Button>
               </div>
             </>
@@ -95,7 +101,7 @@ const Header = () => {
               className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
             >
               <HomeIcon size={16} />
-              <span className="block">Home</span>
+              <span className="block">Início</span>
             </Button>
 
             {data?.user && (
@@ -105,7 +111,7 @@ const Header = () => {
                   className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
                   asChild
                 >
-                  <Link href={"/my-orders"}>
+                  <Link href="/my-orders">
                     <ScrollTextIcon size={16} />
                     <span className="block">Meus Pedidos</span>
                   </Link>
@@ -114,9 +120,12 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
                 >
-                  <HeartIcon size={16} />
-                  <span className="block">Restaurantes Favoritos</span>
+                  <Link href="/my-favorite-restaurants">
+                    <HeartIcon size={16} />
+                    <span className="block">Restaurantes Favoritos</span>
+                  </Link>
                 </Button>
               </>
             )}
