@@ -56,7 +56,7 @@ const ProductDetails = ({
   const { addProductToCart, products } = useContext(CartContext);
 
   const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
-    addProductToCart({ product, quantity, emptyCart });
+    addProductToCart({ product: { ...product, quantity }, emptyCart });
     setIsCartOpen(true);
   };
 
@@ -78,7 +78,6 @@ const ProductDetails = ({
 
   const handleIncreaseQuantityClick = () =>
     setQuantity((currentState) => currentState + 1);
-
   const handleDecreaseQuantityClick = () =>
     setQuantity((currentState) => {
       if (currentState === 1) return 1;
@@ -148,10 +147,7 @@ const ProductDetails = ({
         </div>
 
         <div className="px-5">
-          <DeliveryInfo
-            deliveryFee={product.restaurant.deliveryFee}
-            deliveryTimeMinutes={product.restaurant.deliveryTimeMinutes}
-          />
+          <DeliveryInfo restaurant={product.restaurant} />
         </div>
 
         <div className="mt-6 space-y-3 px-5">
