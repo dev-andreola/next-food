@@ -1,100 +1,54 @@
-import Image from "next/image";
-import { CartContext, CartProduct } from "../_context/cart";
-import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
-import { Button } from "./ui/button";
-import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
-import { memo, useContext } from "react";
+"use client";
 
-interface CartItemProps {
-  cartProduct: CartProduct;
+import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
+import { notFound, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { searchForRestaurants } from "../_actions/search";
+import Header from "@/app/_components/header";
+import RestaurantItem from "@/app/_components/restaurant-item";
+
+interface RestaurantProps {
+  userFavoriteRestaurants: UserFavoriteRestaurant[];
 }
 
-const CartItem = ({ cartProduct }: CartItemProps) => {
-  const {
-    decreaseProductQuantity,
-    increaseProductQuantity,
-    removeProductFromCart,
-  } = useContext(CartContext);
+const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
+  const searchParams = useSearchParams();
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
-  console.log("CartItem");
+  const searchFor = searchParams.get("search");
 
-  const handleDecreaseQuantityClick = () =>
-    decreaseProductQuantity(cartProduct.id);
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      if (!searchFor) return;
+      const foundRestaurants = await searchForRestaurants(searchFor);
+      setRestaurants(foundRestaurants);
+    };
 
-  const handleIncreaseQuantityClick = () =>
-    increaseProductQuantity(cartProduct.id);
+    fetchRestaurants();
+  }, [searchFor]);
 
-  const handleRemoveClick = () => removeProductFromCart(cartProduct.id);
+  if (!searchFor) {
+    return notFound();
+  }
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        {/* IMAGEM E INFO */}
-        <div className="relative h-20 w-20">
-          <Image
-            src={cartProduct.imageUrl}
-            alt={cartProduct.name}
-            fill
-            className="rounded-lg object-cover"
-          />
-        </div>
-
-        <div className="space-y-1">
-          <h3 className="text-xs">{cartProduct.name}</h3>
-
-          <div className="flex items-center gap-1">
-            <h4 className="text-sm font-semibold">
-              {formatCurrency(
-                calculateProductTotalPrice(cartProduct) * cartProduct.quantity,
-              )}
-            </h4>
-            {cartProduct.discountPercentage > 0 && (
-              <span className="text-xs text-muted-foreground line-through">
-                {formatCurrency(
-                  Number(cartProduct.price) * cartProduct.quantity,
-                )}
-              </span>
-            )}
-          </div>
-
-          {/* QUANTIDADE */}
-
-          <div className="flex items-center text-center">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="h-7 w-7 border border-solid border-muted-foreground"
-            >
-              <ChevronLeftIcon
-                size={16}
-                onClick={handleDecreaseQuantityClick}
-              />
-            </Button>
-            <p className="block w-8 text-xs">{cartProduct.quantity}</p>
-            <Button
-              size="icon"
-              className="h-7 w-7"
-              onClick={handleIncreaseQuantityClick}
-            >
-              <ChevronRightIcon size={16} />
-            </Button>
-          </div>
+    <>
+      <Header />
+      <div className="px-5 py-6">
+        <h2 className="mb-6 text-lg font-semibold">Restaurantes Encontrados</h2>
+        <div className="flex w-full flex-col gap-6">
+          {restaurants.map((restaurant) => (
+            <RestaurantItem
+              key={restaurant.id}
+              restaurant={restaurant}
+              className="min-w-full max-w-full"
+              userFavoriteRestaurants={userFavoriteRestaurants}
+            />
+          ))}
         </div>
       </div>
-
-      {/* BOTÃO DE DELETAR */}
-      <Button
-        size="icon"
-        variant="ghost"
-        className="h-7 w-7 border border-solid border-muted-foreground"
-        onClick={handleRemoveClick}
-      >
-        <TrashIcon size={16} />
-      </Button>
-    </div>
+    </>
   );
 };
 
-export default memo(CartItem, (prev, next) => {
-  return prev.cartProduct.quantity === next.cartProduct.quantity;
-});
+export default Restaurants;
