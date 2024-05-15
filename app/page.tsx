@@ -5,9 +5,9 @@ import ProductList from "./_components/product-list";
 import { Button } from "./_components/ui/button";
 import { ChevronRightIcon } from "lucide-react";
 import { db } from "./_lib/prisma";
-import PromoBanner from "./_components/promo-banner";
 import RestaurantList from "./_components/restaurant-list";
 import Link from "next/link";
+import Banner from "./_components/banner";
 
 const fetch = async () => {
   const getProducts = db.product.findMany({
@@ -48,7 +48,7 @@ const fetch = async () => {
 };
 
 const Home = async () => {
-  const { products, burguersCategory, pizzasCategory } = await fetch();
+  const { products } = await fetch();
 
   return (
     <>
@@ -57,17 +57,12 @@ const Home = async () => {
         <Search />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="pt-6">
         <CategoryList />
       </div>
 
-      <div className="px-5 pt-6">
-        <Link href={`/categories/${pizzasCategory?.id}/products`}>
-          <PromoBanner
-            src="/promo-banner-01.png"
-            alt="Até 30% de desconto em pizzas!"
-          />
-        </Link>
+      <div className="px-5">
+        <Banner src="/promo-banner.png" alt="Até 30% de desconto em pizzas!" />
       </div>
 
       <div className="space-y-4 pt-6">
@@ -89,12 +84,10 @@ const Home = async () => {
       </div>
 
       <div className="px-5 pt-6">
-        <Link href={`/categories/${burguersCategory?.id}/products`}>
-          <PromoBanner
-            src="/promo-banner-02.png"
-            alt="A partir de R$17,90 em lanches"
-          />
-        </Link>
+        <Banner
+          src="/burguer-banner.png"
+          alt="A partir de R$17,90 em lanches"
+        />
       </div>
 
       <div className="space-y-4 py-6">
