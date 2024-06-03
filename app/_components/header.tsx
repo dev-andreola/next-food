@@ -30,16 +30,17 @@ const Header = () => {
 
   return (
     <div className="flex items-center justify-between px-5 pt-6">
-      <div className="relative h-[30px] w-[100px]">
-        <Link href="/">
+      <Link href="/">
+        <div className="relative h-[30px] w-[100px]">
           <Image
             src="/logo.png"
             alt="FSW Foods"
             fill
+            sizes="100%"
             className="object-cover"
           />
-        </Link>
-      </div>
+        </div>
+      </Link>
 
       <Sheet>
         <SheetTrigger asChild>

@@ -14,7 +14,13 @@ const ProductImage = ({ imageUrl, name }: ProductImageProps) => {
   const router = useRouter();
   return (
     <div className="relative h-[360px] w-full">
-      <Image src={imageUrl} fill alt={name} className="object-cover" />
+      <Image
+        src={imageUrl}
+        fill
+        alt={name}
+        sizes="100%"
+        className="object-cover"
+      />
 
       <Button
         onClick={() => router.back()}
