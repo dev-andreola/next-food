@@ -8,6 +8,7 @@ import { db } from "./_lib/prisma";
 import Banner from "./_components/banner";
 import RestaurantList from "./_components/restaurant-list";
 import Link from "next/link";
+import HeroDesktop from "./_components/hero-desktop";
 
 const fetch = async () => {
   const getProducts = db.product.findMany({
@@ -53,8 +54,12 @@ const Home = async () => {
   return (
     <>
       <Header />
-      <div className="px-5 pt-6">
+      <div className="px-5 pt-6 lg:hidden">
         <Search />
+      </div>
+
+      <div className="mt-6 hidden bg-primary lg:block">
+        <HeroDesktop />
       </div>
 
       <div className="pt-6">
