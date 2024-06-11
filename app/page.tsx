@@ -66,7 +66,7 @@ const Home = async () => {
         <CategoryList />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="px-5 pt-6 lg:hidden">
         <Link href={`/categories/${pizzasCategory?.id}/products`}>
           <Banner
             src="/promo-banner.png"
@@ -75,7 +75,7 @@ const Home = async () => {
         </Link>
       </div>
 
-      <div className="space-y-4 pt-6">
+      <div className="mx-auto max-w-[1170px] space-y-4 pt-6">
         <div className="flex items-center justify-between px-5">
           <h2 className="font-semibold">Pedidos Recomendados</h2>
 
@@ -93,7 +93,7 @@ const Home = async () => {
         <ProductList products={products} />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="px-5 pt-6 lg:hidden">
         <Link href={`/categories/${burguersCategory?.id}/products`}>
           <Banner
             src="/burguer-banner.png"
@@ -102,7 +102,26 @@ const Home = async () => {
         </Link>
       </div>
 
-      <div className="space-y-4 py-6">
+      <div className="mx-auto hidden max-w-6xl px-8 py-6 lg:flex lg:justify-center lg:gap-4 xl:px-0">
+        <div className="w-2/4">
+          <Link href={`/categories/${pizzasCategory?.id}/products`}>
+            <Banner
+              src="/promo-banner.png"
+              alt="Até 30% de desconto em pizzas!"
+            />
+          </Link>
+        </div>
+        <div className="w-2/4">
+          <Link href={`/categories/${burguersCategory?.id}/products`}>
+            <Banner
+              src="/burguer-banner.png"
+              alt="A partir de R$17,90 em lanches"
+            />
+          </Link>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-[1140px] space-y-4 py-6 lg:mb-6">
         <div className="flex items-center justify-between px-5">
           <h2 className="font-semibold">Restaurantes Recomendados</h2>
 
