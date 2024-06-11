@@ -42,7 +42,12 @@ const RestaurantItem = ({
   };
 
   return (
-    <div className={cn("min-w-[266px] max-w-[266px]", className)}>
+    <div
+      className={cn(
+        "min-w-[266px] max-w-[266px] rounded-lg duration-100 hover:bg-gray-100",
+        className,
+      )}
+    >
       <div className="w-full space-y-3">
         {/* IMAGEM */}
         <div className="relative h-[136px] w-full">

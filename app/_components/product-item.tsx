@@ -24,7 +24,10 @@ const ProductItem = ({ product, className }: ProductItemProps) => {
   return (
     <Link
       href={`/products/${product.id}`}
-      className={cn("w-[150px] min-w-[150px]", className)}
+      className={cn(
+        "w-[150px] min-w-[150px] rounded-lg duration-100 hover:bg-gray-100",
+        className,
+      )}
     >
       <div className="w-full space-y-2">
         {/* IMAGE CONTAINER */}
