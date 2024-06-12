@@ -21,6 +21,7 @@ import {
 } from "./ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
+import Search from "./search";
 
 const Header = () => {
   const { data } = useSession();
@@ -41,6 +42,10 @@ const Header = () => {
           />
         </div>
       </Link>
+
+      <div className="hidden w-[500px] lg:block">
+        <Search />
+      </div>
 
       <Sheet>
         <SheetTrigger asChild>

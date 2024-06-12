@@ -54,6 +54,7 @@ const Home = async () => {
   return (
     <>
       <Header />
+
       <div className="px-5 pt-6 lg:hidden">
         <Search />
       </div>

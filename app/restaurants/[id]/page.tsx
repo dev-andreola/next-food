@@ -8,6 +8,7 @@ import ProductList from "@/app/_components/product-list";
 import CartBanner from "./_components/cart-banner";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/_lib/auth";
+import Header from "@/app/_components/header";
 
 interface RestaurantPageProps {
   params: {
@@ -41,7 +42,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         },
       },
       products: {
-        take: 10,
+        take: 6,
         include: {
           restaurant: {
             select: {
@@ -71,7 +72,11 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         userFavoriteRestaurants={userFavoriteRestaurants}
       />
 
-      <div className="relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-white px-5 pt-5">
+      <div className="hidden lg:block">
+        <Header />
+      </div>
+
+      <div className="relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-white px-5 pt-5 lg:hidden">
         {/* TITULO */}
         <div className="flex items-center gap-[0.375rem]">
           <div className="relative h-8 w-8">
@@ -92,11 +97,11 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         </div>
       </div>
 
-      <div className="px-5">
+      <div className="px-5 lg:hidden">
         <DeliveryInfo restaurant={restaurant} />
       </div>
 
-      <div className="mt-3 flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
+      <div className="mt-3 flex gap-4 overflow-x-scroll px-5 lg:hidden [&::-webkit-scrollbar]:hidden">
         {restaurant.categories.map((category) => (
           <div
             key={category.id}
@@ -109,14 +114,14 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         ))}
       </div>
 
-      <div className="mt-6 space-y-4">
+      <div className="mx-auto mt-6 max-w-6xl space-y-4">
         {/* TODO: mostrar produtos mais pedidos quando implementarmos realização de pedido */}
         <h2 className="px-5  font-semibold">Mais Pedidos</h2>
         <ProductList products={restaurant.products} />
       </div>
 
       {restaurant.categories.map((category) => (
-        <div className="mt-6 space-y-4" key={category.id}>
+        <div className="mx-auto mt-6 max-w-6xl space-y-4" key={category.id}>
           {/* TODO: mostrar produtos mais pedidos quando implementarmos realização de pedido */}
           <h2 className="px-5  font-semibold">{category.name}</h2>
           <ProductList products={category.products} />
