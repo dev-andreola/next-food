@@ -9,7 +9,7 @@ const RecommendedProducts = async () => {
         gt: 0,
       },
     },
-    take: 20,
+    take: 12,
     include: {
       restaurant: {
         select: {
