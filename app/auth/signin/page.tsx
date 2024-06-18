@@ -14,12 +14,15 @@ const SignIn = () => {
 
   useEffect(() => {
     if (session) {
+      console.log("User is already logged in, redirecting...");
       router.push("/");
     }
   }, [session, router]);
 
   const handleSignIn = async (provider: string) => {
-    await signIn(provider);
+    console.log(`Signing in with ${provider}`);
+    const response = await signIn(provider);
+    console.log(`Sign in response: ${response}`);
   };
 
   return (

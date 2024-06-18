@@ -5,6 +5,14 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import { Adapter } from "next-auth/adapters";
 
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+  throw new Error("Missing Google client ID or client secret");
+}
+
+if (!process.env.GITHUB_ID || !process.env.GITHUB_SECRET) {
+  throw new Error("Missing GitHub client ID or client secret");
+}
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
