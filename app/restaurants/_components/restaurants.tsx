@@ -34,9 +34,16 @@ const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
   return (
     <>
       <Header />
-      <div className="px-5 py-6">
-        <h2 className="mb-6 text-lg font-semibold">Restaurantes Encontrados</h2>
-        <div className="flex w-full flex-col gap-6">
+      <div className="mx-auto max-w-6xl px-5 py-6">
+        <h2 className="mb-6 text-lg font-semibold">
+          Resultados para &quot;{searchFor}&quot;
+        </h2>
+        {!restaurants.length && (
+          <p className="mt-6 text-muted-foreground">
+            Nenhum restaurante encontrado!
+          </p>
+        )}
+        <div className="flex w-full flex-col gap-6 lg:grid lg:grid-cols-3">
           {restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
