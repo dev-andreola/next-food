@@ -25,7 +25,7 @@ const ProductItem = ({ product, className }: ProductItemProps) => {
     <Link
       href={`/products/${product.id}`}
       className={cn(
-        "w-[150px] min-w-[150px] rounded-lg duration-100 hover:bg-gray-100",
+        "w-[150px] min-w-[150px] rounded-lg duration-100 hover:bg-gray-100 lg:flex-auto",
         className,
       )}
     >

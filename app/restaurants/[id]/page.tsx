@@ -76,6 +76,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         <Header />
       </div>
 
+      {/* MOBILE IMAGE */}
       <div className="relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-white px-5 pt-5 lg:hidden">
         {/* TITULO */}
         <div className="flex items-center gap-[0.375rem]">
@@ -97,6 +98,60 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         </div>
       </div>
 
+      <div className="mx-auto mt-6 hidden h-[380px] max-w-6xl px-5 lg:flex">
+        <div className="relative h-[380px] flex-[3]">
+          <Image
+            src={restaurant.imageUrl}
+            alt={restaurant.name}
+            fill
+            sizes="100%"
+            className="rounded-sm object-cover"
+          />
+        </div>
+        <div className="flex flex-[2] flex-col pl-4">
+          <div className="flex w-full items-center">
+            <div className="relative h-8 w-8">
+              <Image
+                src={restaurant.imageUrl}
+                alt={restaurant.name}
+                fill
+                sizes="100%"
+                className="rounded-full object-cover"
+              />
+            </div>
+            <h2 className="ml-2 text-xl font-semibold">{restaurant.name}</h2>
+            <div className="ml-auto flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white">
+              <StarIcon size={12} className="fill-yellow-400 text-yellow-400" />
+              <span className="text-xs font-semibold">5.0</span>
+            </div>
+          </div>
+          <DeliveryInfo restaurant={restaurant} />
+          <div className="mt-3 flex gap-1">
+            {restaurant.categories.map((category) => (
+              <div
+                key={category.id}
+                className="flex-grow-[1] rounded-lg bg-[#F4F4F4] text-center"
+              >
+                <span className="text-xs text-muted-foreground">
+                  {category.name}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col">
+            <h3 className="my-3 text-lg font-semibold">Sobre</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum
+              officiis ullam hic obcaecati, id assumenda, sequi ut culpa
+              doloremque debitis perferendis. Earum vel ratione cumque,
+              provident quas placeat nemo mollitia fuga voluptates quisquam
+              exercitationem. Architecto deleniti obcaecati delectus ea
+              temporibus.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="px-5 lg:hidden">
         <DeliveryInfo restaurant={restaurant} />
       </div>
@@ -105,7 +160,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         {restaurant.categories.map((category) => (
           <div
             key={category.id}
-            className="min-w-[167px] rounded-lg bg-[#F4F4F4] text-center"
+            className="min-w-[167px] flex-grow-[1] rounded-lg bg-[#F4F4F4] text-center md:w-auto"
           >
             <span className="text-xs text-muted-foreground">
               {category.name}
@@ -127,6 +182,8 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
           <ProductList products={category.products} />
         </div>
       ))}
+
+      <div className="lg:mb-8"></div>
 
       <CartBanner restaurant={restaurant} />
     </div>
