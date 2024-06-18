@@ -72,7 +72,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         userFavoriteRestaurants={userFavoriteRestaurants}
       />
 
-      <div className="hidden lg:block">
+      <div className="hidden lg:block lg:border-b-[1px] lg:border-neutral-200 lg:pb-6">
         <Header />
       </div>
 
@@ -105,7 +105,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
             alt={restaurant.name}
             fill
             sizes="100%"
-            className="rounded-sm object-cover"
+            className="rounded-md object-cover"
           />
         </div>
         <div className="flex flex-[2] flex-col pl-4">
@@ -183,7 +183,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         </div>
       ))}
 
-      <div className="lg:mb-8"></div>
+      <div className="mb-8"></div>
 
       <CartBanner restaurant={restaurant} />
     </div>
