@@ -178,7 +178,83 @@ const ProductDetails = ({
         <div className="flex-1">
           <ProductImage name={product.name} imageUrl={product.imageUrl} />
         </div>
-        <div className="flex-1 bg-blue-300">details</div>
+        <div className="ml-5 flex-1 rounded-md border-[1px] border-neutral-200 p-5">
+          <div className="flex items-center gap-[0.375rem]">
+            <div className="relative h-6 w-6">
+              <Image
+                src={product.restaurant.imageUrl}
+                alt={product.restaurant.name}
+                fill
+                sizes="100%"
+                className="rounded-full object-cover"
+              />
+            </div>
+            <span className="text-xs text-muted-foreground">
+              {product.restaurant.name}
+            </span>
+          </div>
+          <h1 className="mb-2 mt-1 text-xl font-semibold">{product.name}</h1>
+          {/* PREÇO COM DESCONTO */}
+          <div className="flex justify-between">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-xl font-semibold">
+                  {formatCurrency(calculateProductTotalPrice(product))}
+                </h2>
+                {product.discountPercentage > 0 && (
+                  <DiscountBadge
+                    discountPercentage={product.discountPercentage}
+                  />
+                )}
+              </div>
+
+              {/* PREÇO ORIGINAL */}
+              {product.discountPercentage > 0 && (
+                <p className="text-sm text-muted-foreground">
+                  De: {formatCurrency(Number(product.price))}
+                </p>
+              )}
+            </div>
+
+            {/* QUANTIDADE */}
+            <div className="flex items-center gap-3 text-center">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="border border-solid border-muted-foreground"
+                onClick={handleDecreaseQuantityClick}
+              >
+                <ChevronLeftIcon />
+              </Button>
+              <span className="w-4">{quantity}</span>
+              <Button size="icon" onClick={handleIncreaseQuantityClick}>
+                <ChevronRightIcon />
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <DeliveryInfo restaurant={product.restaurant} />
+          </div>
+
+          <div className="mt-6 max-h-[100px] w-full space-y-3 overflow-hidden">
+            <h3 className="font-semibold">Sobre</h3>
+            <p className="text-sm text-muted-foreground">
+              {product.description}
+            </p>
+          </div>
+          <Button
+            className="mt-3 w-full font-semibold"
+            onClick={handleAddToCartClick}
+          >
+            Adicionar à sacola
+          </Button>
+        </div>
+      </div>
+
+      <div className="mx-auto my-6 hidden max-w-6xl space-y-3 lg:block">
+        <h3 className="px-5 font-semibold">Sucos</h3>
+        <ProductList products={complementaryProducts} />
       </div>
 
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
