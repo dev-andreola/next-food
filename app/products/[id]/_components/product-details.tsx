@@ -30,6 +30,7 @@ import { Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
+import ProductImage from "./product-image";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -87,7 +88,8 @@ const ProductDetails = ({
 
   return (
     <>
-      <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
+      {/* MOBILE */}
+      <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:hidden">
         {/* RESTAURANTE */}
         <div className="flex items-center gap-[0.375rem] px-5">
           <div className="relative h-6 w-6">
@@ -169,6 +171,14 @@ const ProductDetails = ({
             Adicionar à sacola
           </Button>
         </div>
+      </div>
+
+      {/* DESKTOP */}
+      <div className="mx-auto hidden max-w-6xl px-5 lg:flex">
+        <div className="flex-1">
+          <ProductImage name={product.name} imageUrl={product.imageUrl} />
+        </div>
+        <div className="flex-1 bg-blue-300">details</div>
       </div>
 
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>

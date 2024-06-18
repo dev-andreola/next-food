@@ -13,23 +13,37 @@ interface ProductImageProps {
 const ProductImage = ({ imageUrl, name }: ProductImageProps) => {
   const router = useRouter();
   return (
-    <div className="relative h-[360px] w-full">
-      <Image
-        src={imageUrl}
-        fill
-        alt={name}
-        sizes="100%"
-        className="object-cover"
-      />
+    <>
+      {/* MOBILE */}
+      <div className="relative h-[360px] w-full lg:hidden">
+        <Image
+          src={imageUrl}
+          fill
+          alt={name}
+          sizes="100%"
+          className="object-cover"
+        />
 
-      <Button
-        onClick={() => router.back()}
-        size={"icon"}
-        className="absolute left-4 top-4 rounded-full bg-white text-foreground hover:text-white"
-      >
-        <ChevronLeftIcon />
-      </Button>
-    </div>
+        <Button
+          onClick={() => router.back()}
+          size={"icon"}
+          className="absolute left-4 top-4 rounded-full bg-white text-foreground hover:text-white"
+        >
+          <ChevronLeftIcon />
+        </Button>
+      </div>
+
+      {/* DESKTOP */}
+      <div className="relative hidden h-[400px] w-full lg:flex">
+        <Image
+          src={imageUrl}
+          fill
+          alt={name}
+          sizes="100%"
+          className="rounded-md object-cover"
+        />
+      </div>
+    </>
   );
 };
 
