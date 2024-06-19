@@ -31,6 +31,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
 import ProductImage from "./product-image";
+import Link from "next/link";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -91,7 +92,10 @@ const ProductDetails = ({
       {/* MOBILE */}
       <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:hidden">
         {/* RESTAURANTE */}
-        <div className="flex items-center gap-[0.375rem] px-5">
+        <Link
+          href={`/restaurants/${product.restaurantId}`}
+          className="flex items-center gap-[0.375rem] px-5"
+        >
           <div className="relative h-6 w-6">
             <Image
               src={product.restaurant.imageUrl}
@@ -104,7 +108,7 @@ const ProductDetails = ({
           <span className="text-xs text-muted-foreground">
             {product.restaurant.name}
           </span>
-        </div>
+        </Link>
 
         {/* NOME DO PRODUTO */}
         <h1 className="mb-2 mt-1 px-5 text-xl font-semibold">{product.name}</h1>
@@ -179,7 +183,10 @@ const ProductDetails = ({
           <ProductImage name={product.name} imageUrl={product.imageUrl} />
         </div>
         <div className="ml-5 flex-1 rounded-md border-[1px] border-neutral-200 p-5">
-          <div className="flex items-center gap-[0.375rem]">
+          <Link
+            href={`/restaurants/${product.restaurantId}`}
+            className="flex items-center gap-[0.375rem]"
+          >
             <div className="relative h-6 w-6">
               <Image
                 src={product.restaurant.imageUrl}
@@ -192,7 +199,7 @@ const ProductDetails = ({
             <span className="text-xs text-muted-foreground">
               {product.restaurant.name}
             </span>
-          </div>
+          </Link>
           <h1 className="mb-2 mt-1 text-xl font-semibold">{product.name}</h1>
           {/* PREÇO COM DESCONTO */}
           <div className="flex justify-between">

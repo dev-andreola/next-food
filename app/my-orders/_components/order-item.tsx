@@ -69,7 +69,10 @@ const OrderItem = ({ order }: OrderItemProps) => {
           </span>
         </div>
 
-        <div className="flex items-center justify-between pt-3">
+        <Link
+          className="flex items-center justify-between pt-3"
+          href={`/restaurants/${order.restaurantId}`}
+        >
           <div className="flex items-center gap-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={order.restaurant.imageUrl} />
@@ -86,11 +89,9 @@ const OrderItem = ({ order }: OrderItemProps) => {
             className="h-5 w-5 text-black"
             asChild
           >
-            <Link href={`/restaurants/${order.restaurantId}`}>
-              <ChevronRightIcon />
-            </Link>
+            <ChevronRightIcon />
           </Button>
-        </div>
+        </Link>
 
         <div className="py-3">
           <Separator />
