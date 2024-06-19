@@ -33,7 +33,9 @@ const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
 
   return (
     <>
-      <Header />
+      <div className="lg:border-b-[1px] lg:border-neutral-200 lg:pb-6">
+        <Header />
+      </div>
       <div className="mx-auto max-w-6xl px-5 py-6">
         <h2 className="mb-6 text-lg font-semibold">
           Resultados para &quot;{searchFor}&quot;
