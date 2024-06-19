@@ -27,7 +27,10 @@ const RestaurantItem = ({
     (fav) => fav.restaurantId === restaurant.id,
   );
 
-  const handleFavoriteClick = async () => {
+  const handleFavoriteClick = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e.preventDefault();
     if (!data?.user.id) return;
     try {
       await toggleFavoriteRestaurant(data?.user.id, restaurant.id);
@@ -68,7 +71,7 @@ const RestaurantItem = ({
             {data?.user.id && (
               <Button
                 size="icon"
-                className={`absolute right-2 top-2 h-7 w-7 rounded-full bg-gray-700 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
+                className={`absolute right-2 top-2 z-10 h-7 w-7 rounded-full bg-gray-700 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
                 onClick={handleFavoriteClick}
               >
                 <HeartIcon size={16} className="fill-white" />
